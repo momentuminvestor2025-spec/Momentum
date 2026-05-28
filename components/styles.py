@@ -34,20 +34,20 @@ def inject_global_styles():
         padding-top: 0.35rem;
         padding-left: 0.45rem;
         padding-right: 0.45rem;
-        padding-bottom: 0.6rem;
+        padding-bottom: 0.75rem;
     }
 
     [data-testid="stHeader"] { display: none; }
     [data-testid="stSidebar"] { display: none; }
 
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
+        gap: 10px;
         background: transparent;
         margin-bottom: 10px;
     }
 
     .stTabs [data-baseweb="tab"] {
-        height: 38px;
+        height: 40px;
         padding: 0 16px;
         border-radius: 12px;
         background: rgba(16, 24, 42, 0.90);
@@ -61,6 +61,7 @@ def inject_global_styles():
         background: linear-gradient(180deg, rgba(42,109,255,0.18), rgba(25,67,168,0.12));
         color: #eaf2fb;
         border-color: rgba(75, 127, 255, 0.22);
+        box-shadow: inset 0 -2px 0 rgba(255, 89, 107, 0.90);
     }
 
     .panel {
@@ -318,7 +319,7 @@ def inject_global_styles():
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     .kpi-card {
@@ -383,9 +384,9 @@ def inject_global_styles():
         height: 20px;
     }
 
-    .heatmap-panel {
-        padding: 10px;
-        min-height: 560px;
+    .heatmap-page {
+        padding: 12px;
+        min-height: 720px;
     }
 
     .section-head {
@@ -393,41 +394,53 @@ def inject_global_styles():
         justify-content: space-between;
         align-items: center;
         gap: 8px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         position: relative;
         z-index: 1;
     }
 
     .section-title {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.04em;
         font-weight: 800;
         color: #eef5fe;
     }
 
+    .controls-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
     .mini-pill {
-        font-size: 0.68rem;
-        color: rgba(221,231,243,0.70);
+        font-size: 0.69rem;
+        color: rgba(221,231,243,0.78);
         background: rgba(18,26,45,0.84);
         border: 1px solid rgba(123,150,188,0.10);
         border-radius: 10px;
-        padding: 5px 10px;
+        padding: 6px 11px;
         white-space: nowrap;
     }
 
     .heatmap-grid {
         display: grid;
         grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 2px;
+        gap: 4px;
         border-radius: 14px;
         overflow: hidden;
         background: rgba(255,255,255,0.03);
+        position: relative;
+        z-index: 1;
     }
 
     .heat-tile {
-        min-height: 120px;
-        padding: 12px 10px;
+        min-height: 126px;
+        padding: 14px 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -436,15 +449,16 @@ def inject_global_styles():
     }
 
     .heat-name {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
         font-weight: 700;
         color: #f8fbff;
         margin-bottom: 10px;
         line-height: 1.15;
+        max-width: 92%;
     }
 
     .heat-score {
-        font-size: 1.4rem;
+        font-size: 1.48rem;
         font-weight: 800;
         color: white;
         margin-bottom: 8px;
@@ -452,52 +466,48 @@ def inject_global_styles():
     }
 
     .heat-change {
-        font-size: 0.86rem;
+        font-size: 0.87rem;
         font-weight: 700;
     }
 
-    .heat-green-5 { background: linear-gradient(180deg, #104d35 0%, #0e412e 100%); }
-    .heat-green-4 { background: linear-gradient(180deg, #0d432f 0%, #0c3728 100%); }
-    .heat-green-3 { background: linear-gradient(180deg, #0b3928 0%, #092f21 100%); }
-    .heat-green-2 { background: linear-gradient(180deg, #092f22 0%, #08261c 100%); }
-    .heat-green-1 { background: linear-gradient(180deg, #08251b 0%, #071d15 100%); }
-
-    .heat-red-1 { background: linear-gradient(180deg, #281119 0%, #1f0d13 100%); }
-    .heat-red-2 { background: linear-gradient(180deg, #331119 0%, #270d13 100%); }
-    .heat-red-3 { background: linear-gradient(180deg, #3e1119 0%, #2f0d13 100%); }
-    .heat-red-4 { background: linear-gradient(180deg, #481119 0%, #360d13 100%); }
-    .heat-red-5 { background: linear-gradient(180deg, #531119 0%, #3c0d13 100%); }
-    .heat-neutral { background: linear-gradient(180deg, #101a2f 0%, #0d1525 100%); }
+    .heat-green-5 { background: linear-gradient(180deg, #125238 0%, #0f4430 100%); }
+    .heat-green-4 { background: linear-gradient(180deg, #10472f 0%, #0d3a28 100%); }
+    .heat-green-3 { background: linear-gradient(180deg, #0d3d29 0%, #0a3121 100%); }
+    .heat-green-2 { background: linear-gradient(180deg, #0a3322 0%, #08291b 100%); }
+    .heat-green-1 { background: linear-gradient(180deg, #08281c 0%, #071f16 100%); }
+    .heat-red-1 { background: linear-gradient(180deg, #2a1218 0%, #210d13 100%); }
+    .heat-red-2 { background: linear-gradient(180deg, #351118 0%, #280d13 100%); }
+    .heat-red-3 { background: linear-gradient(180deg, #401118 0%, #300d13 100%); }
+    .heat-red-4 { background: linear-gradient(180deg, #4b1118 0%, #370d13 100%); }
+    .heat-red-5 { background: linear-gradient(180deg, #571118 0%, #3f0d13 100%); }
+    .heat-neutral { background: linear-gradient(180deg, #121d33 0%, #0e1727 100%); }
 
     .legend-row {
         display: flex;
         justify-content: center;
-        gap: 6px;
-        margin-top: 12px;
+        gap: 8px;
+        margin-top: 14px;
         flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
     }
 
     .legend-pill {
-        min-width: 84px;
+        min-width: 94px;
         text-align: center;
-        padding: 5px 9px;
-        border-radius: 7px;
+        padding: 6px 10px;
+        border-radius: 8px;
         color: #edf5ff;
-        font-size: 0.68rem;
+        font-size: 0.69rem;
         font-weight: 700;
     }
 
     .legend-red-3 { background: #4a1019; }
-    .legend-red-2 { background: #3a1118; }
-    .legend-red-1 { background: #2b1217; }
-    .legend-green-1 { background: #123326; }
+    .legend-red-2 { background: #391118; }
+    .legend-red-1 { background: #2a1217; }
+    .legend-green-1 { background: #133427; }
     .legend-green-2 { background: #0f4630; }
-    .legend-green-3 { background: #0e5a3d; }
-
-    .detail-top, .summary-panel, .qualification-panel {
-        padding: 10px;
-        margin-bottom: 10px;
-    }
+    .legend-green-3 { background: #0f5a3d; }
 
     @media (max-width: 1200px) {
         .top-header-grid { grid-template-columns: 1fr; }
@@ -592,14 +602,21 @@ def render_kpi_cards():
         <div class="panel kpi-card"><div class="kpi-inner"><div class="kpi-left"><div class="kpi-icon" style="color:#1ad6ff;border:1px solid rgba(26,214,255,.42)">⌁</div><div><div class="kpi-label">Strong Relative Strength</div><div class="kpi-value">156</div><div class="kpi-delta" style="color:#1ad6ff">+ 22.7% vs yesterday</div></div></div><div>{_sparkline_svg("#1ad6ff")}</div></div></div>
         <div class="panel kpi-card"><div class="kpi-inner"><div class="kpi-left"><div class="kpi-icon" style="color:#f2aa3b;border:1px solid rgba(242,170,59,.42)">♛</div><div><div class="kpi-label">QMO Qualified</div><div class="kpi-value">74</div><div class="kpi-delta" style="color:#f2aa3b">+ 12.1% vs yesterday</div></div></div><div>{_sparkline_svg("#f2aa3b")}</div></div></div>
         <div class="panel kpi-card"><div class="kpi-inner"><div class="kpi-left"><div class="kpi-icon" style="color:#7f56ff;border:1px solid rgba(127,86,255,.42)">◔</div><div><div class="kpi-label">Average RS (Nifty500)</div><div class="kpi-value">0.86</div><div class="kpi-delta" style="color:#7f56ff">+ 0.04 vs yesterday</div></div></div><div>{_sparkline_svg("#7f56ff")}</div></div></div>
-        <div class="panel kpi-card"><div class="kpi-inner"><div><div class="kpi-label">NIFTY 500</div><div class="kpi-value" style="font-size:1.55rem">DIXON</div><div class="kpi-delta" style="color:#8fa1bb">Dixon Technologies (India) Ltd.</div></div></div></div>
+        <div class="panel kpi-card"><div class="kpi-inner"><div><div class="kpi-label">Universe</div><div class="kpi-value" style="font-size:1.55rem">NIFTY 500</div><div class="kpi-delta" style="color:#8fa1bb">Heatmap view</div></div></div></div>
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
 
 
-def render_heatmap_panel(mode="sector"):
-    datasets = {
+def render_heatmap_page(mode="sector"):
+    titles = {
+        "sector": "Sector Strength Heatmap",
+        "relative": "Relative Strength Heatmap",
+        "momentum": "Momentum Leaders Heatmap",
+        "qmo": "QMO View Heatmap",
+    }
+
+    data = {
         "sector": [
             ("Capital Goods", "1.67", "+2.45%", "heat-green-5", "green"),
             ("Metals", "1.54", "+2.18%", "heat-green-4", "green"),
@@ -613,6 +630,12 @@ def render_heatmap_panel(mode="sector"):
             ("IT Services", "0.89", "-0.18%", "heat-neutral", "red"),
             ("Healthcare", "0.86", "-0.34%", "heat-red-1", "red"),
             ("FMCG", "0.82", "-0.56%", "heat-red-2", "red"),
+            ("Financial Services", "0.76", "-0.98%", "heat-red-3", "red"),
+            ("Realty", "0.68", "-1.21%", "heat-red-3", "red"),
+            ("Media", "0.58", "-1.87%", "heat-red-4", "red"),
+            ("Textiles", "0.48", "-2.34%", "heat-red-5", "red"),
+            ("PSU Bank", "1.11", "+0.84%", "heat-green-2", "green"),
+            ("Private Bank", "0.91", "-0.09%", "heat-neutral", "red"),
         ],
         "relative": [
             ("DIXON", "2.56", "+3.24%", "heat-green-5", "green"),
@@ -626,7 +649,13 @@ def render_heatmap_panel(mode="sector"):
             ("JINDALSTEL", "1.78", "+2.05%", "heat-green-2", "green"),
             ("KPIT", "1.74", "+1.62%", "heat-green-1", "green"),
             ("TITAN", "1.41", "-0.21%", "heat-neutral", "red"),
-            ("HDFCBANK", "0.88", "-0.64%", "heat-red-2", "red"),
+            ("INFY", "0.95", "-0.84%", "heat-red-2", "red"),
+            ("WIPRO", "0.82", "-1.28%", "heat-red-2", "red"),
+            ("HDFCBANK", "0.78", "-1.44%", "heat-red-3", "red"),
+            ("SBIN", "0.74", "-1.88%", "heat-red-3", "red"),
+            ("ITC", "0.66", "-2.14%", "heat-red-4", "red"),
+            ("HUL", "0.58", "-2.52%", "heat-red-5", "red"),
+            ("ASIANPAINT", "0.55", "-2.71%", "heat-red-5", "red"),
         ],
         "momentum": [
             ("DIXON", "98", "+18.1%", "heat-green-5", "green"),
@@ -638,9 +667,15 @@ def render_heatmap_panel(mode="sector"):
             ("CGPOWER", "84", "+9.2%", "heat-green-2", "green"),
             ("KPIT", "81", "+8.4%", "heat-green-2", "green"),
             ("TATAMOTORS", "79", "+7.8%", "heat-green-1", "green"),
+            ("BEL", "76", "+7.1%", "heat-green-1", "green"),
             ("INFY", "61", "-1.2%", "heat-neutral", "red"),
             ("HINDUNILVR", "54", "-2.1%", "heat-red-2", "red"),
             ("WIPRO", "49", "-3.4%", "heat-red-3", "red"),
+            ("ASIANPAINT", "45", "-4.1%", "heat-red-4", "red"),
+            ("ITC", "42", "-4.8%", "heat-red-4", "red"),
+            ("LTIM", "38", "-5.2%", "heat-red-5", "red"),
+            ("ULTRACEMCO", "35", "-5.8%", "heat-red-5", "red"),
+            ("MARICO", "33", "-6.1%", "heat-red-5", "red"),
         ],
         "qmo": [
             ("DIXON", "QMO", "Pass", "heat-green-5", "green"),
@@ -652,33 +687,40 @@ def render_heatmap_panel(mode="sector"):
             ("CGPOWER", "QM", "Pass", "heat-green-2", "green"),
             ("KPIT", "QM", "Pass", "heat-green-2", "green"),
             ("TATAMOTORS", "MO", "Pass", "heat-green-1", "green"),
+            ("BEL", "MO", "Pass", "heat-green-1", "green"),
             ("INFY", "Watch", "Fail", "heat-red-1", "red"),
             ("HINDUNILVR", "Watch", "Fail", "heat-red-2", "red"),
             ("WIPRO", "Watch", "Fail", "heat-red-3", "red"),
+            ("ASIANPAINT", "Watch", "Fail", "heat-red-4", "red"),
+            ("ITC", "Watch", "Fail", "heat-red-4", "red"),
+            ("LTIM", "Watch", "Fail", "heat-red-5", "red"),
+            ("ULTRACEMCO", "Watch", "Fail", "heat-red-5", "red"),
+            ("MARICO", "Watch", "Fail", "heat-red-5", "red"),
         ],
     }
 
-    titles = {
-        "sector": "Sector Strength Heatmap",
-        "relative": "Relative Strength Heatmap",
-        "momentum": "Momentum Heatmap",
-        "qmo": "QMO Qualification Heatmap",
-    }
-
-    rows = datasets.get(mode, datasets["sector"])
+    rows = data[mode]
 
     html = f"""
-    <div class="panel heatmap-panel">
+    <div class="panel heatmap-page">
         <div class="section-head">
-            <div class="section-title">{titles.get(mode, "Heatmap")}</div>
-            <div class="mini-pill">NIFTY 500 ▾</div>
+            <div class="section-title">{titles[mode]}</div>
+            <div class="mini-pill">NIFTY 500</div>
         </div>
+
+        <div class="controls-row">
+            <div class="mini-pill">All Stocks</div>
+            <div class="mini-pill">1D Change</div>
+            <div class="mini-pill">Sort: Descending</div>
+            <div class="mini-pill">Market Cap Weighted</div>
+        </div>
+
         <div class="heatmap-grid">
     """
 
-    for name, score, change, tile, txt in rows:
+    for name, score, change, bg, txt in rows:
         html += f"""
-        <div class="heat-tile {tile}">
+        <div class="heat-tile {bg}">
             <div class="heat-name">{name}</div>
             <div class="heat-score">{score}</div>
             <div class="heat-change {txt}">{change}</div>
@@ -687,50 +729,16 @@ def render_heatmap_panel(mode="sector"):
 
     html += """
         </div>
+
         <div class="legend-row">
-            <div class="legend-pill legend-red-3">&lt; Weak</div>
-            <div class="legend-pill legend-red-2">Lagging</div>
-            <div class="legend-pill legend-red-1">Neutral</div>
-            <div class="legend-pill legend-green-1">Improving</div>
-            <div class="legend-pill legend-green-2">Strong</div>
-            <div class="legend-pill legend-green-3">Leading</div>
+            <div class="legend-pill legend-red-3">Deep Red</div>
+            <div class="legend-pill legend-red-2">Red</div>
+            <div class="legend-pill legend-red-1">Soft Red</div>
+            <div class="legend-pill legend-green-1">Soft Green</div>
+            <div class="legend-pill legend-green-2">Green</div>
+            <div class="legend-pill legend-green-3">Deep Green</div>
         </div>
     </div>
     """
 
     st.markdown(html, unsafe_allow_html=True)
-
-
-def render_right_detail_panel():
-    st.markdown("""
-    <div class="panel detail-top">
-        <div class="section-title">NIFTY 500 / DIXON</div>
-        <div style="font-size:1.35rem;font-weight:800;margin-top:6px;">DIXON</div>
-        <div style="font-size:0.72rem;color:#8ea1bb;margin-top:4px;">Dixon Technologies (India) Ltd.<br>Consumer Electronics · Small Cap</div>
-        <div style="font-size:2rem;font-weight:800;margin-top:12px;">15,642.50</div>
-        <div class="green" style="font-size:0.84rem;font-weight:700;margin-top:4px;">▲ 3.24% (490.40)</div>
-    </div>
-
-    <div class="panel summary-panel">
-        <div class="section-head"><div class="section-title">Earnings Summary</div></div>
-        <div style="font-size:0.75rem;color:#dce7f7;line-height:1.9;">
-            Next Earnings: 29 May 2025<br>
-            EPS (TTM): 132.45<br>
-            EPS Growth (YoY): <span class="green">+78.6%</span><br>
-            Surprise (Last): <span class="green">+12.3%</span>
-        </div>
-    </div>
-
-    <div class="panel qualification-panel">
-        <div class="section-head"><div class="section-title">Scanner Qualification</div></div>
-        <div style="font-size:0.72rem;color:#dce7f7;line-height:2;">
-            Price above 10W MA — <span class="green">Pass</span><br>
-            Price above 20W MA — <span class="green">Pass</span><br>
-            Price above 50W MA — <span class="green">Pass</span><br>
-            Price above 200W MA — <span class="green">Pass</span><br>
-            RS vs NIFTY500 &gt; 1.0 — <span class="green">Pass</span><br>
-            Positive Weekly % — <span class="green">Pass</span><br>
-            Positive Daily % — <span class="green">Pass</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
