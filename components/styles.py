@@ -55,13 +55,25 @@ def inject_global_styles():
         color: #95a8c2;
         font-size: 0.80rem;
         font-weight: 700;
+        box-shadow: none !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, rgba(42,109,255,0.18), rgba(25,67,168,0.12));
-        color: #eaf2fb;
-        border-color: rgba(75, 127, 255, 0.22);
-        box-shadow: inset 0 -2px 0 rgba(255, 89, 107, 0.90);
+        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78));
+        color: #ffffff;
+        border-color: rgba(95, 132, 197, 0.34);
+        box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.05),
+            0 6px 18px rgba(0,0,0,0.18) !important;
+    }
+
+    div[data-baseweb="tab-highlight"] {
+        background-color: transparent !important;
+        height: 0 !important;
+    }
+
+    div[data-baseweb="tab-border"] {
+        display: none !important;
     }
 
     div[data-baseweb="select"] > div,
@@ -782,4 +794,4 @@ def render_heatmap_page(mode="broad", start_date=None, end_date=None, view_mode=
     </div>
     """
 
-    st.markdown(html, unsafe_allow_html=True)
+    st.html(html)
