@@ -384,6 +384,21 @@ def inject_global_styles():
         height: 20px;
     }
 
+    .heatmap-widget-title {
+        padding: 12px 14px;
+        margin-bottom: 10px;
+    }
+
+    .widget-title-text {
+        font-size: 0.88rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: #eef5fe;
+        position: relative;
+        z-index: 1;
+    }
+
     .heatmap-page {
         padding: 12px;
         min-height: 720px;
@@ -608,94 +623,78 @@ def render_kpi_cards():
     st.markdown(html, unsafe_allow_html=True)
 
 
-def render_heatmap_page(mode="sector"):
+def render_heatmap_widget_header():
+    st.markdown("""
+    <div class="panel heatmap-widget-title">
+        <div class="widget-title-text">Heatmap</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_heatmap_page(mode="broad"):
     titles = {
-        "sector": "Sector Strength Heatmap",
-        "relative": "Relative Strength Heatmap",
-        "momentum": "Momentum Leaders Heatmap",
-        "qmo": "QMO View Heatmap",
+        "broad": "Broad Market Indices",
+        "sectoral": "Sectoral Indices",
+        "thematic": "Thematic Indices",
+        "strategy": "Strategy Indices",
     }
 
     data = {
-        "sector": [
-            ("Capital Goods", "1.67", "+2.45%", "heat-green-5", "green"),
-            ("Metals", "1.54", "+2.18%", "heat-green-4", "green"),
-            ("Auto", "1.32", "+1.72%", "heat-green-3", "green"),
-            ("Construction", "1.21", "+1.35%", "heat-green-3", "green"),
-            ("Chemicals", "1.15", "+1.08%", "heat-green-2", "green"),
-            ("Consumer Durables", "1.07", "+0.98%", "heat-green-2", "green"),
-            ("Oil & Gas", "1.03", "+0.71%", "heat-green-2", "green"),
-            ("Power", "0.98", "+0.32%", "heat-green-1", "green"),
-            ("Telecom", "0.94", "+0.12%", "heat-green-1", "green"),
-            ("IT Services", "0.89", "-0.18%", "heat-neutral", "red"),
-            ("Healthcare", "0.86", "-0.34%", "heat-red-1", "red"),
-            ("FMCG", "0.82", "-0.56%", "heat-red-2", "red"),
-            ("Financial Services", "0.76", "-0.98%", "heat-red-3", "red"),
-            ("Realty", "0.68", "-1.21%", "heat-red-3", "red"),
-            ("Media", "0.58", "-1.87%", "heat-red-4", "red"),
-            ("Textiles", "0.48", "-2.34%", "heat-red-5", "red"),
-            ("PSU Bank", "1.11", "+0.84%", "heat-green-2", "green"),
-            ("Private Bank", "0.91", "-0.09%", "heat-neutral", "red"),
+        "broad": [
+            ("NIFTY 50", "1.24%", "+1.24%", "heat-green-4", "green"),
+            ("NIFTY NEXT 50", "1.08%", "+1.08%", "heat-green-3", "green"),
+            ("NIFTY 100", "0.96%", "+0.96%", "heat-green-3", "green"),
+            ("NIFTY 200", "0.88%", "+0.88%", "heat-green-2", "green"),
+            ("NIFTY 500", "0.82%", "+0.82%", "heat-green-2", "green"),
+            ("NIFTY MIDCAP 50", "1.41%", "+1.41%", "heat-green-5", "green"),
+            ("NIFTY MIDCAP 100", "1.28%", "+1.28%", "heat-green-4", "green"),
+            ("NIFTY SMALLCAP 100", "1.62%", "+1.62%", "heat-green-5", "green"),
+            ("NIFTY SMALLCAP 250", "1.74%", "+1.74%", "heat-green-5", "green"),
+            ("NIFTY MICROCAP 250", "1.11%", "+1.11%", "heat-green-3", "green"),
+            ("NIFTY LARGEMIDCAP 250", "0.77%", "+0.77%", "heat-green-2", "green"),
+            ("INDIA VIX", "-1.92%", "-1.92%", "heat-red-3", "red"),
         ],
-        "relative": [
-            ("DIXON", "2.56", "+3.24%", "heat-green-5", "green"),
-            ("COFORGE", "2.31", "+2.87%", "heat-green-4", "green"),
-            ("KALYANKJIL", "2.21", "+4.12%", "heat-green-4", "green"),
-            ("ASTRAL", "2.08", "+2.61%", "heat-green-3", "green"),
-            ("LTF", "1.98", "+2.34%", "heat-green-3", "green"),
-            ("HAL", "1.93", "+1.96%", "heat-green-3", "green"),
-            ("DEEPAKNTR", "1.87", "+2.78%", "heat-green-2", "green"),
-            ("CGPOWER", "1.82", "+1.78%", "heat-green-2", "green"),
-            ("JINDALSTEL", "1.78", "+2.05%", "heat-green-2", "green"),
-            ("KPIT", "1.74", "+1.62%", "heat-green-1", "green"),
-            ("TITAN", "1.41", "-0.21%", "heat-neutral", "red"),
-            ("INFY", "0.95", "-0.84%", "heat-red-2", "red"),
-            ("WIPRO", "0.82", "-1.28%", "heat-red-2", "red"),
-            ("HDFCBANK", "0.78", "-1.44%", "heat-red-3", "red"),
-            ("SBIN", "0.74", "-1.88%", "heat-red-3", "red"),
-            ("ITC", "0.66", "-2.14%", "heat-red-4", "red"),
-            ("HUL", "0.58", "-2.52%", "heat-red-5", "red"),
-            ("ASIANPAINT", "0.55", "-2.71%", "heat-red-5", "red"),
+        "sectoral": [
+            ("NIFTY BANK", "0.42%", "+0.42%", "heat-green-1", "green"),
+            ("NIFTY FIN SERVICE", "0.36%", "+0.36%", "heat-green-1", "green"),
+            ("NIFTY IT", "-0.54%", "-0.54%", "heat-red-2", "red"),
+            ("NIFTY AUTO", "1.31%", "+1.31%", "heat-green-4", "green"),
+            ("NIFTY FMCG", "-0.48%", "-0.48%", "heat-red-2", "red"),
+            ("NIFTY PHARMA", "-0.22%", "-0.22%", "heat-red-1", "red"),
+            ("NIFTY METAL", "1.58%", "+1.58%", "heat-green-5", "green"),
+            ("NIFTY REALTY", "-0.84%", "-0.84%", "heat-red-3", "red"),
+            ("NIFTY MEDIA", "-1.14%", "-1.14%", "heat-red-4", "red"),
+            ("NIFTY PSU BANK", "0.92%", "+0.92%", "heat-green-2", "green"),
+            ("NIFTY OIL & GAS", "0.74%", "+0.74%", "heat-green-2", "green"),
+            ("NIFTY CONSUMER DURABLES", "1.18%", "+1.18%", "heat-green-3", "green"),
         ],
-        "momentum": [
-            ("DIXON", "98", "+18.1%", "heat-green-5", "green"),
-            ("COFORGE", "95", "+15.4%", "heat-green-4", "green"),
-            ("KALYANKJIL", "93", "+14.7%", "heat-green-4", "green"),
-            ("ASTRAL", "91", "+13.9%", "heat-green-3", "green"),
-            ("HAL", "89", "+12.2%", "heat-green-3", "green"),
-            ("LTF", "87", "+10.6%", "heat-green-3", "green"),
-            ("CGPOWER", "84", "+9.2%", "heat-green-2", "green"),
-            ("KPIT", "81", "+8.4%", "heat-green-2", "green"),
-            ("TATAMOTORS", "79", "+7.8%", "heat-green-1", "green"),
-            ("BEL", "76", "+7.1%", "heat-green-1", "green"),
-            ("INFY", "61", "-1.2%", "heat-neutral", "red"),
-            ("HINDUNILVR", "54", "-2.1%", "heat-red-2", "red"),
-            ("WIPRO", "49", "-3.4%", "heat-red-3", "red"),
-            ("ASIANPAINT", "45", "-4.1%", "heat-red-4", "red"),
-            ("ITC", "42", "-4.8%", "heat-red-4", "red"),
-            ("LTIM", "38", "-5.2%", "heat-red-5", "red"),
-            ("ULTRACEMCO", "35", "-5.8%", "heat-red-5", "red"),
-            ("MARICO", "33", "-6.1%", "heat-red-5", "red"),
+        "thematic": [
+            ("NIFTY INDIA DEFENCE", "1.84%", "+1.84%", "heat-green-5", "green"),
+            ("NIFTY INDIA DIGITAL", "1.26%", "+1.26%", "heat-green-4", "green"),
+            ("NIFTY ENERGY", "0.81%", "+0.81%", "heat-green-2", "green"),
+            ("NIFTY INFRASTRUCTURE", "1.12%", "+1.12%", "heat-green-3", "green"),
+            ("NIFTY COMMODITIES", "0.94%", "+0.94%", "heat-green-2", "green"),
+            ("NIFTY MNC", "-0.21%", "-0.21%", "heat-red-1", "red"),
+            ("NIFTY PSE", "0.62%", "+0.62%", "heat-green-1", "green"),
+            ("NIFTY HOUSING", "-0.42%", "-0.42%", "heat-red-2", "red"),
+            ("NIFTY RURAL", "0.37%", "+0.37%", "heat-green-1", "green"),
+            ("NIFTY CONSUMPTION", "-0.35%", "-0.35%", "heat-red-1", "red"),
+            ("NIFTY MANUFACTURING", "1.47%", "+1.47%", "heat-green-4", "green"),
+            ("NIFTY TRANSPORTATION", "1.03%", "+1.03%", "heat-green-3", "green"),
         ],
-        "qmo": [
-            ("DIXON", "QMO", "Pass", "heat-green-5", "green"),
-            ("COFORGE", "QMO", "Pass", "heat-green-4", "green"),
-            ("KALYANKJIL", "QMO", "Pass", "heat-green-4", "green"),
-            ("ASTRAL", "QMO", "Pass", "heat-green-3", "green"),
-            ("HAL", "QMO", "Pass", "heat-green-3", "green"),
-            ("LTF", "QMO", "Pass", "heat-green-3", "green"),
-            ("CGPOWER", "QM", "Pass", "heat-green-2", "green"),
-            ("KPIT", "QM", "Pass", "heat-green-2", "green"),
-            ("TATAMOTORS", "MO", "Pass", "heat-green-1", "green"),
-            ("BEL", "MO", "Pass", "heat-green-1", "green"),
-            ("INFY", "Watch", "Fail", "heat-red-1", "red"),
-            ("HINDUNILVR", "Watch", "Fail", "heat-red-2", "red"),
-            ("WIPRO", "Watch", "Fail", "heat-red-3", "red"),
-            ("ASIANPAINT", "Watch", "Fail", "heat-red-4", "red"),
-            ("ITC", "Watch", "Fail", "heat-red-4", "red"),
-            ("LTIM", "Watch", "Fail", "heat-red-5", "red"),
-            ("ULTRACEMCO", "Watch", "Fail", "heat-red-5", "red"),
-            ("MARICO", "Watch", "Fail", "heat-red-5", "red"),
+        "strategy": [
+            ("NIFTY ALPHA 50", "1.66%", "+1.66%", "heat-green-5", "green"),
+            ("NIFTY QUALITY LOW VOL 30", "0.74%", "+0.74%", "heat-green-2", "green"),
+            ("NIFTY LOW VOLATILITY 50", "0.28%", "+0.28%", "heat-green-1", "green"),
+            ("NIFTY MOMENTUM 30", "1.58%", "+1.58%", "heat-green-5", "green"),
+            ("NIFTY VALUE 20", "-0.16%", "-0.16%", "heat-red-1", "red"),
+            ("NIFTY GROWTH SECTORS 15", "1.12%", "+1.12%", "heat-green-3", "green"),
+            ("NIFTY100 QUALITY 30", "0.64%", "+0.64%", "heat-green-2", "green"),
+            ("NIFTY200 MOMENTUM 30", "1.44%", "+1.44%", "heat-green-4", "green"),
+            ("NIFTY MIDCAP150 MOMENTUM 50", "1.88%", "+1.88%", "heat-green-5", "green"),
+            ("NIFTY SMALLCAP250 MOMENTUM QUALITY 100", "1.97%", "+1.97%", "heat-green-5", "green"),
+            ("NIFTY50 VALUE 20", "-0.38%", "-0.38%", "heat-red-1", "red"),
+            ("NIFTY100 ALPHA 30", "1.21%", "+1.21%", "heat-green-3", "green"),
         ],
     }
 
@@ -705,14 +704,14 @@ def render_heatmap_page(mode="sector"):
     <div class="panel heatmap-page">
         <div class="section-head">
             <div class="section-title">{titles[mode]}</div>
-            <div class="mini-pill">NIFTY 500</div>
+            <div class="mini-pill">NSE Indices</div>
         </div>
 
         <div class="controls-row">
-            <div class="mini-pill">All Stocks</div>
             <div class="mini-pill">1D Change</div>
-            <div class="mini-pill">Sort: Descending</div>
-            <div class="mini-pill">Market Cap Weighted</div>
+            <div class="mini-pill">Sorted by Performance</div>
+            <div class="mini-pill">Index Universe</div>
+            <div class="mini-pill">Heat Scale</div>
         </div>
 
         <div class="heatmap-grid">
