@@ -5,7 +5,6 @@ from components.styles import (
     render_top_header,
     render_breadth_strip,
     render_kpi_cards,
-    render_heatmap_panel,
     render_rs_leaderboard,
     render_scanner_table,
     render_right_detail_panel,
@@ -27,7 +26,6 @@ with shell_main:
     left, right = st.columns([2.15, 1.0], gap="medium")
 
     with left:
-        render_heatmap_panel()
         render_rs_leaderboard()
         render_scanner_table()
 
