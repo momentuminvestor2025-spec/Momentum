@@ -362,7 +362,7 @@ def inject_global_styles():
 
     .section-panel {
         padding: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     .section-head {
@@ -370,7 +370,7 @@ def inject_global_styles():
         justify-content: space-between;
         align-items: center;
         gap: 8px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         position: relative;
         z-index: 1;
     }
@@ -393,83 +393,6 @@ def inject_global_styles():
         white-space: nowrap;
     }
 
-    .heatmap-grid {
-        display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 2px;
-        border-radius: 12px;
-        overflow: hidden;
-        background: rgba(255,255,255,0.03);
-    }
-
-    .heat-tile {
-        min-height: 76px;
-        padding: 10px 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .heat-name {
-        font-size: 0.74rem;
-        font-weight: 700;
-        color: #f8fbff;
-        margin-bottom: 7px;
-        line-height: 1.1;
-    }
-
-    .heat-score {
-        font-size: 1.20rem;
-        font-weight: 800;
-        color: white;
-        margin-bottom: 6px;
-        line-height: 1;
-    }
-
-    .heat-change {
-        font-size: 0.76rem;
-        font-weight: 700;
-    }
-
-    .heat-green-5 { background: linear-gradient(180deg, #104d35 0%, #0e412e 100%); }
-    .heat-green-4 { background: linear-gradient(180deg, #0d432f 0%, #0c3728 100%); }
-    .heat-green-3 { background: linear-gradient(180deg, #0b3928 0%, #092f21 100%); }
-    .heat-green-2 { background: linear-gradient(180deg, #092f22 0%, #08261c 100%); }
-    .heat-green-1 { background: linear-gradient(180deg, #08251b 0%, #071d15 100%); }
-    .heat-red-1 { background: linear-gradient(180deg, #281119 0%, #1f0d13 100%); }
-    .heat-red-2 { background: linear-gradient(180deg, #331119 0%, #270d13 100%); }
-    .heat-red-3 { background: linear-gradient(180deg, #3e1119 0%, #2f0d13 100%); }
-    .heat-red-4 { background: linear-gradient(180deg, #481119 0%, #360d13 100%); }
-    .heat-red-5 { background: linear-gradient(180deg, #531119 0%, #3c0d13 100%); }
-    .heat-neutral { background: linear-gradient(180deg, #101a2f 0%, #0d1525 100%); }
-
-    .legend-row {
-        display: flex;
-        justify-content: center;
-        gap: 6px;
-        margin-top: 9px;
-        flex-wrap: wrap;
-    }
-
-    .legend-pill {
-        min-width: 84px;
-        text-align: center;
-        padding: 4px 8px;
-        border-radius: 7px;
-        color: #edf5ff;
-        font-size: 0.67rem;
-        font-weight: 700;
-    }
-
-    .legend-red-3 { background: #4a1019; }
-    .legend-red-2 { background: #3a1118; }
-    .legend-red-1 { background: #2b1217; }
-    .legend-green-1 { background: #123326; }
-    .legend-green-2 { background: #0f4630; }
-    .legend-green-3 { background: #0e5a3d; }
-
     .chip-board {
         display: grid;
         grid-template-columns: repeat(9, minmax(0, 1fr));
@@ -480,8 +403,25 @@ def inject_global_styles():
         border-radius: 12px;
         background: rgba(11, 20, 37, 0.85);
         border: 1px solid rgba(123,150,188,0.10);
-        padding: 7px 8px;
-        min-height: 42px;
+        padding: 10px 10px 12px 10px;
+        min-height: 52px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .rs-chip-symbol {
+        font-size: 0.72rem;
+        color: #dfe9f7;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .rs-chip-value {
+        font-size: 0.96rem;
+        color: #ffffff;
+        font-weight: 800;
+        line-height: 1;
     }
 
     .table-panel { padding: 10px; }
@@ -498,14 +438,14 @@ def inject_global_styles():
         text-align: left;
         font-size: 0.64rem;
         color: #8398b5;
-        padding: 8px;
+        padding: 10px 8px;
         border-bottom: 1px solid rgba(123,150,188,0.12);
         font-weight: 700;
         white-space: nowrap;
     }
 
     .ms-table tbody td {
-        padding: 8px;
+        padding: 11px 8px;
         border-bottom: 1px solid rgba(123,150,188,0.08);
         white-space: nowrap;
     }
@@ -519,13 +459,11 @@ def inject_global_styles():
         .top-header-grid { grid-template-columns: 1fr; }
         .breadth-grid { grid-template-columns: repeat(2, 1fr); }
         .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .chip-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 
     @media (max-width: 760px) {
         .kpi-grid { grid-template-columns: 1fr; }
-        .heatmap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .chip-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .nav-rail { min-height: auto; }
     }
@@ -616,59 +554,45 @@ def render_kpi_cards():
     st.markdown(html, unsafe_allow_html=True)
 
 
-def render_heatmap_panel():
-    st.markdown("""
-    <div class="panel section-panel">
-        <div class="section-head"><div class="section-title">Sector Strength Heatmap</div><div class="mini-pill">NIFTY 500 ▾</div></div>
-        <div class="heatmap-grid">
-            <div class="heat-tile heat-green-5"><div class="heat-name">Capital Goods</div><div class="heat-score">1.67</div><div class="heat-change green">+2.45%</div></div>
-            <div class="heat-tile heat-green-4"><div class="heat-name">Metals</div><div class="heat-score">1.54</div><div class="heat-change green">+2.18%</div></div>
-            <div class="heat-tile heat-green-3"><div class="heat-name">Auto</div><div class="heat-score">1.32</div><div class="heat-change green">+1.72%</div></div>
-            <div class="heat-tile heat-green-3"><div class="heat-name">Construction</div><div class="heat-score">1.21</div><div class="heat-change green">+1.35%</div></div>
-            <div class="heat-tile heat-green-2"><div class="heat-name">Chemicals</div><div class="heat-score">1.15</div><div class="heat-change green">+1.08%</div></div>
-            <div class="heat-tile heat-green-2"><div class="heat-name">Consumer Durables</div><div class="heat-score">1.07</div><div class="heat-change green">+0.98%</div></div>
-            <div class="heat-tile heat-green-2"><div class="heat-name">Oil & Gas</div><div class="heat-score">1.03</div><div class="heat-change green">+0.71%</div></div>
-            <div class="heat-tile heat-green-1"><div class="heat-name">Power</div><div class="heat-score">0.98</div><div class="heat-change green">+0.32%</div></div>
-            <div class="heat-tile heat-green-1"><div class="heat-name">Telecom</div><div class="heat-score">0.94</div><div class="heat-change green">+0.12%</div></div>
-            <div class="heat-tile heat-neutral"><div class="heat-name">IT Services</div><div class="heat-score">0.89</div><div class="heat-change red">-0.18%</div></div>
-            <div class="heat-tile heat-red-1"><div class="heat-name">Healthcare</div><div class="heat-score">0.86</div><div class="heat-change red">-0.34%</div></div>
-            <div class="heat-tile heat-red-2"><div class="heat-name">FMCG</div><div class="heat-score">0.82</div><div class="heat-change red">-0.56%</div></div>
-        </div>
-        <div class="legend-row">
-            <div class="legend-pill legend-red-3">&lt; 0.60</div>
-            <div class="legend-pill legend-red-2">0.60 - 0.80</div>
-            <div class="legend-pill legend-red-1">0.80 - 1.10</div>
-            <div class="legend-pill legend-green-1">1.10 - 1.30</div>
-            <div class="legend-pill legend-green-2">1.30 - 1.60</div>
-            <div class="legend-pill legend-green-3">&gt; 1.60</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-
 def render_rs_leaderboard():
-    st.markdown("""
+    chips = [
+        ("DIXON", "2.56"),
+        ("COFORGE", "2.31"),
+        ("KALYANKJIL", "2.21"),
+        ("ASTRAL", "2.08"),
+        ("LTF", "1.98"),
+        ("HAL", "1.93"),
+        ("DEEPAKNTR", "1.87"),
+        ("CGPOWER", "1.82"),
+        ("JINDALSTEL", "1.78"),
+    ]
+
+    html = """
     <div class="panel section-panel">
-        <div class="section-head"><div class="section-title">Relative Strength Leaderboard</div><div class="mini-pill">View All</div></div>
-        <div class="chip-board">
-            <div class="rs-chip">DIXON<br><b>2.56</b></div>
-            <div class="rs-chip">COFORGE<br><b>2.31</b></div>
-            <div class="rs-chip">KALYANKJIL<br><b>2.21</b></div>
-            <div class="rs-chip">ASTRAL<br><b>2.08</b></div>
-            <div class="rs-chip">LTF<br><b>1.98</b></div>
-            <div class="rs-chip">HAL<br><b>1.93</b></div>
-            <div class="rs-chip">DEEPAKNTR<br><b>1.87</b></div>
-            <div class="rs-chip">CGPOWER<br><b>1.82</b></div>
-            <div class="rs-chip">JINDALSTEL<br><b>1.78</b></div>
+        <div class="section-head">
+            <div class="section-title">Relative Strength Leaderboard</div>
+            <div class="mini-pill">View All</div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        <div class="chip-board">
+    """
+    for sym, val in chips:
+        html += f"""
+        <div class="rs-chip">
+            <div class="rs-chip-symbol">{sym}</div>
+            <div class="rs-chip-value">{val}</div>
+        </div>
+        """
+    html += "</div></div>"
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def render_scanner_table():
     st.markdown("""
     <div class="panel table-panel">
-        <div class="section-head"><div class="section-title">Momentum Scanner (NIFTY 500)</div><div class="mini-pill">302 Results</div></div>
+        <div class="section-head">
+            <div class="section-title">Momentum Scanner (NIFTY 500)</div>
+            <div class="mini-pill">302 Results</div>
+        </div>
         <div class="table-wrap">
             <table class="ms-table">
                 <thead>
@@ -696,7 +620,7 @@ def render_right_detail_panel():
     </div>
 
     <div class="panel summary-panel">
-        <div class="section-head"><div class="section-title">Earnings Summary</div><div class="mini-pill">View More</div></div>
+        <div class="section-head"><div class="section-title">Earnings Summary</div></div>
         <div style="font-size:0.75rem;color:#dce7f7;line-height:1.9;">
             Next Earnings: 29 May 2025<br>
             EPS (TTM): 132.45<br>
@@ -706,7 +630,7 @@ def render_right_detail_panel():
     </div>
 
     <div class="panel qualification-panel">
-        <div class="section-head"><div class="section-title">Scanner Qualification</div><div class="mini-pill">View Rules</div></div>
+        <div class="section-head"><div class="section-title">Scanner Qualification</div></div>
         <div style="font-size:0.72rem;color:#dce7f7;line-height:2;">
             Price above 10W MA — <span class="green">Pass</span><br>
             Price above 20W MA — <span class="green">Pass</span><br>
