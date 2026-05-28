@@ -7,12 +7,9 @@ def inject_global_styles():
     :root {
         --bg: #050b16;
         --panel: #081120;
-        --panel-2: #0b1628;
-        --panel-3: #0d1930;
         --border: rgba(123, 150, 188, 0.14);
         --text: #eaf2fb;
         --muted: #8fa1bb;
-        --faint: #607089;
         --green: #20e38b;
         --red: #ff5f6d;
         --orange: #f2aa3b;
@@ -39,56 +36,6 @@ def inject_global_styles():
 
     [data-testid="stHeader"] { display: none; }
     [data-testid="stSidebar"] { display: none; }
-
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background: transparent;
-        margin-bottom: 10px;
-    }
-
-    .stTabs [data-baseweb="tab"] {
-        height: 40px;
-        padding: 0 16px;
-        border-radius: 12px;
-        background: rgba(16, 24, 42, 0.90);
-        border: 1px solid rgba(123, 150, 188, 0.12);
-        color: #95a8c2;
-        font-size: 0.80rem;
-        font-weight: 700;
-        box-shadow: none !important;
-    }
-
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78));
-        color: #ffffff;
-        border-color: rgba(95, 132, 197, 0.34);
-        box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.05),
-            0 6px 18px rgba(0,0,0,0.18) !important;
-    }
-
-    div[data-baseweb="tab-highlight"] {
-        background-color: transparent !important;
-        height: 0 !important;
-    }
-
-    div[data-baseweb="tab-border"] {
-        display: none !important;
-    }
-
-    div[data-baseweb="select"] > div,
-    div[data-testid="stDateInput"] > div > div {
-        background: rgba(16, 24, 42, 0.92);
-        border: 1px solid rgba(123, 150, 188, 0.12);
-        border-radius: 12px;
-        color: #eaf2fb;
-    }
-
-    label[data-testid="stWidgetLabel"] p {
-        color: #9fb0c7;
-        font-size: 0.75rem;
-        font-weight: 700;
-    }
 
     .panel {
         position: relative;
@@ -410,85 +357,54 @@ def inject_global_styles():
         height: 20px;
     }
 
-    .heatmap-widget-title {
-        padding: 12px 14px;
-        margin-bottom: 10px;
+    .heatmap-widget {
+        padding: 12px;
+        min-height: 760px;
     }
 
-    .widget-title-text {
-        font-size: 0.88rem;
+    .heatmap-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .heatmap-title {
+        font-size: 0.90rem;
         font-weight: 800;
         letter-spacing: 0.03em;
         text-transform: uppercase;
         color: #eef5fe;
-        position: relative;
-        z-index: 1;
     }
 
-    .filter-summary-panel {
-        padding: 12px 14px;
-        min-height: 68px;
+    .selector-wrap {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .filter-summary-title {
-        font-size: 0.72rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: #eef5fe;
-        margin-bottom: 6px;
-    }
-
-    .filter-summary-text {
-        font-size: 0.80rem;
-        color: #a9b8cc;
-        font-weight: 600;
-    }
-
-    .heatmap-page {
-        padding: 12px;
-        min-height: 720px;
-    }
-
-    .section-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .section-title {
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        font-weight: 800;
-        color: #eef5fe;
-    }
-
-    .controls-row {
-        display: flex;
-        align-items: center;
         gap: 8px;
         flex-wrap: wrap;
-        margin-bottom: 12px;
-        position: relative;
-        z-index: 1;
+        margin-bottom: 14px;
     }
 
-    .mini-pill {
-        font-size: 0.69rem;
-        color: rgba(221,231,243,0.78);
-        background: rgba(18,26,45,0.84);
-        border: 1px solid rgba(123,150,188,0.10);
+    .selector-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 14px;
         border-radius: 10px;
-        padding: 6px 11px;
-        white-space: nowrap;
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #a9bbd2;
+        background: rgba(16, 24, 42, 0.90);
+        border: 1px solid rgba(123, 150, 188, 0.12);
+    }
+
+    .selector-btn.active {
+        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78));
+        color: #ffffff;
+        border-color: rgba(95, 132, 197, 0.34);
+        box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.05),
+            0 6px 18px rgba(0,0,0,0.18);
     }
 
     .heatmap-grid {
@@ -544,34 +460,6 @@ def inject_global_styles():
     .heat-red-3 { background: linear-gradient(180deg, #401118 0%, #300d13 100%); }
     .heat-red-4 { background: linear-gradient(180deg, #4b1118 0%, #370d13 100%); }
     .heat-red-5 { background: linear-gradient(180deg, #571118 0%, #3f0d13 100%); }
-    .heat-neutral { background: linear-gradient(180deg, #121d33 0%, #0e1727 100%); }
-
-    .legend-row {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 14px;
-        flex-wrap: wrap;
-        position: relative;
-        z-index: 1;
-    }
-
-    .legend-pill {
-        min-width: 94px;
-        text-align: center;
-        padding: 6px 10px;
-        border-radius: 8px;
-        color: #edf5ff;
-        font-size: 0.69rem;
-        font-weight: 700;
-    }
-
-    .legend-red-3 { background: #4a1019; }
-    .legend-red-2 { background: #391118; }
-    .legend-red-1 { background: #2a1217; }
-    .legend-green-1 { background: #133427; }
-    .legend-green-2 { background: #0f4630; }
-    .legend-green-3 { background: #0f5a3d; }
 
     @media (max-width: 1200px) {
         .top-header-grid { grid-template-columns: 1fr; }
@@ -672,28 +560,8 @@ def render_kpi_cards():
     st.markdown(html, unsafe_allow_html=True)
 
 
-def render_heatmap_widget_header():
-    st.markdown("""
-    <div class="panel heatmap-widget-title">
-        <div class="widget-title-text">Heatmap</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_heatmap_page(mode="broad", start_date=None, end_date=None, view_mode="Historical Performance"):
-    titles = {
-        "broad": "Broad Market Indices",
-        "sectoral": "Sectoral Indices",
-        "thematic": "Thematic Indices",
-        "strategy": "Strategy Indices",
-    }
-
-    if start_date and end_date:
-        range_text = f"{start_date.strftime('%d %b %Y')} → {end_date.strftime('%d %b %Y')}"
-    else:
-        range_text = "Current session"
-
-    data = {
+def _get_heatmap_data():
+    return {
         "broad": [
             ("NIFTY 50", "1.24%", "+1.24%", "heat-green-4", "green"),
             ("NIFTY NEXT 50", "1.08%", "+1.08%", "heat-green-3", "green"),
@@ -752,26 +620,55 @@ def render_heatmap_page(mode="broad", start_date=None, end_date=None, view_mode=
         ],
     }
 
-    rows = data[mode]
+
+def render_heatmap_widget():
+    if "heatmap_view" not in st.session_state:
+        st.session_state.heatmap_view = "broad"
+
+    labels = {
+        "broad": "Broad Market Indices",
+        "sectoral": "Sectoral Indices",
+        "thematic": "Thematic Indices",
+        "strategy": "Strategy Indices",
+    }
+
+    c1, c2, c3, c4 = st.columns(4, gap="small")
+
+    with c1:
+        if st.button("Broad Market Indices", use_container_width=True, key="btn_broad"):
+            st.session_state.heatmap_view = "broad"
+    with c2:
+        if st.button("Sectoral Indices", use_container_width=True, key="btn_sectoral"):
+            st.session_state.heatmap_view = "sectoral"
+    with c3:
+        if st.button("Thematic Indices", use_container_width=True, key="btn_thematic"):
+            st.session_state.heatmap_view = "thematic"
+    with c4:
+        if st.button("Strategy Indices", use_container_width=True, key="btn_strategy"):
+            st.session_state.heatmap_view = "strategy"
+
+    active = st.session_state.heatmap_view
+    data = _get_heatmap_data()[active]
+
+    button_html = f"""
+    <div class="selector-wrap">
+        <div class="selector-btn {'active' if active == 'broad' else ''}">Broad Market Indices</div>
+        <div class="selector-btn {'active' if active == 'sectoral' else ''}">Sectoral Indices</div>
+        <div class="selector-btn {'active' if active == 'thematic' else ''}">Thematic Indices</div>
+        <div class="selector-btn {'active' if active == 'strategy' else ''}">Strategy Indices</div>
+    </div>
+    """
 
     html = f"""
-    <div class="panel heatmap-page">
-        <div class="section-head">
-            <div class="section-title">{titles[mode]}</div>
-            <div class="mini-pill">{view_mode}</div>
+    <div class="panel heatmap-widget">
+        <div class="heatmap-top">
+            <div class="heatmap-title">Heatmap</div>
         </div>
-
-        <div class="controls-row">
-            <div class="mini-pill">Range: {range_text}</div>
-            <div class="mini-pill">Sorted by Performance</div>
-            <div class="mini-pill">Index Universe</div>
-            <div class="mini-pill">Heat Scale</div>
-        </div>
-
+        {button_html}
         <div class="heatmap-grid">
     """
 
-    for name, score, change, bg, txt in rows:
+    for name, score, change, bg, txt in data:
         html += f"""
         <div class="heat-tile {bg}">
             <div class="heat-name">{name}</div>
@@ -781,15 +678,6 @@ def render_heatmap_page(mode="broad", start_date=None, end_date=None, view_mode=
         """
 
     html += """
-        </div>
-
-        <div class="legend-row">
-            <div class="legend-pill legend-red-3">Deep Red</div>
-            <div class="legend-pill legend-red-2">Red</div>
-            <div class="legend-pill legend-red-1">Soft Red</div>
-            <div class="legend-pill legend-green-1">Soft Green</div>
-            <div class="legend-pill legend-green-2">Green</div>
-            <div class="legend-pill legend-green-3">Deep Green</div>
         </div>
     </div>
     """
