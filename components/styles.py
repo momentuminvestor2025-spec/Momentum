@@ -12,15 +12,13 @@ def inject_global_styles():
         --muted: #8fa1bb;
         --green: #20e38b;
         --red: #ff5f6d;
+        --cyan: #1ad6ff;
         --orange: #f2aa3b;
         --purple: #7f56ff;
-        --cyan: #1ad6ff;
-        --blue: #2d8cff;
     }
 
     .stApp {
-        background:
-            linear-gradient(180deg, #040915 0%, #050b16 100%);
+        background: linear-gradient(180deg, #040915 0%, #050b16 100%);
         color: var(--text);
     }
 
@@ -46,14 +44,6 @@ def inject_global_styles():
         box-shadow:
             0 12px 28px rgba(0,0,0,0.22),
             inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .panel::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 18%);
     }
 
     .nav-rail {
@@ -303,8 +293,6 @@ def inject_global_styles():
         align-items: center;
         justify-content: space-between;
         gap: 8px;
-        position: relative;
-        z-index: 1;
     }
 
     .kpi-left {
@@ -355,25 +343,13 @@ def inject_global_styles():
         height: 20px;
     }
 
-    .heatmap-widget {
-        padding: 12px;
-        min-height: auto;
-    }
-
-    .heatmap-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 12px;
-    }
-
     .heatmap-title {
         font-size: 0.90rem;
         font-weight: 800;
         letter-spacing: 0.03em;
         text-transform: uppercase;
         color: #eef5fe;
+        margin-bottom: 8px;
     }
 
     div[data-testid="stSegmentedControl"] {
@@ -387,39 +363,52 @@ def inject_global_styles():
     div[data-testid="stSegmentedControl"] [role="radiogroup"] {
         display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
-        background: transparent !important;
+        gap: 0px;
+        background: rgba(255,255,255,0.02) !important;
+        border-radius: 10px !important;
+        overflow: hidden;
+        width: fit-content;
     }
 
     div[data-testid="stSegmentedControl"] [role="radio"] {
-        min-height: 36px;
-        border-radius: 10px !important;
-        background: rgba(16, 24, 42, 0.90) !important;
-        border: 1px solid rgba(123, 150, 188, 0.12) !important;
-        color: #a9bbd2 !important;
+        min-height: 38px;
+        border-radius: 0 !important;
+        background: rgba(255,255,255,0.92) !important;
+        border-top: 1px solid rgba(123,150,188,0.12) !important;
+        border-bottom: 1px solid rgba(123,150,188,0.12) !important;
+        border-left: 1px solid rgba(123,150,188,0.12) !important;
+        border-right: none !important;
+        color: #cfd7e3 !important;
         font-size: 0.76rem !important;
         font-weight: 700 !important;
         box-shadow: none !important;
+        padding: 0 18px !important;
+    }
+
+    div[data-testid="stSegmentedControl"] [role="radio"]:last-child {
+        border-right: 1px solid rgba(123,150,188,0.12) !important;
     }
 
     div[data-testid="stSegmentedControl"] [role="radio"][aria-checked="true"] {
-        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78)) !important;
-        color: #ffffff !important;
-        border: 1px solid rgba(95, 132, 197, 0.34) !important;
-        box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.05),
-            0 6px 18px rgba(0,0,0,0.18) !important;
+        background: rgba(53, 16, 18, 0.18) !important;
+        color: #ff6a63 !important;
+        border: 1px solid rgba(255, 95, 90, 0.88) !important;
+        position: relative;
+        z-index: 2;
+    }
+
+    .heatmap-widget {
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(123,150,188,0.10);
     }
 
     .heatmap-grid {
         display: grid;
         grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 3px;
-        border-radius: 14px;
-        overflow: hidden;
         background: rgba(255,255,255,0.03);
-        position: relative;
-        z-index: 1;
     }
 
     .heat-tile {
@@ -472,6 +461,7 @@ def inject_global_styles():
         .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         div[data-testid="stSegmentedControl"] [role="radiogroup"] {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
         }
     }
 
@@ -481,6 +471,7 @@ def inject_global_styles():
         .nav-rail { min-height: auto; }
         div[data-testid="stSegmentedControl"] [role="radiogroup"] {
             grid-template-columns: 1fr;
+            width: 100%;
         }
     }
     </style>
@@ -632,21 +623,14 @@ def _get_heatmap_data():
 
 
 def render_heatmap_widget():
-    st.markdown('<div class="panel heatmap-widget">', unsafe_allow_html=True)
-    st.markdown('<div class="heatmap-top"><div class="heatmap-title">Heatmap</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="heatmap-title">HEATMAP</div>', unsafe_allow_html=True)
 
     selected = st.segmented_control(
-        "Heatmap Category",
-        options=[
-            "Broad Market Indices",
-            "Sectoral Indices",
-            "Thematic Indices",
-            "Strategy Indices",
-        ],
-        selection_mode="single",
+        "",
+        ["Broad Market Indices", "Sectoral Indices", "Thematic Indices", "Strategy Indices"],
         default="Broad Market Indices",
+        selection_mode="single",
         key="heatmap_selector",
-        label_visibility="collapsed",
     )
 
     if not selected:
@@ -654,7 +638,7 @@ def render_heatmap_widget():
 
     data = _get_heatmap_data()[selected]
 
-    html = '<div class="heatmap-grid">'
+    html = '<div class="heatmap-widget"><div class="heatmap-grid">'
     for name, score, change, bg, txt in data:
         html += f"""
         <div class="heat-tile {bg}">
@@ -663,7 +647,6 @@ def render_heatmap_widget():
             <div class="heat-change {txt}">{change}</div>
         </div>
         """
-    html += "</div>"
+    html += '</div></div>'
 
     st.markdown(html, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
