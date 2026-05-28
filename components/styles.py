@@ -64,6 +64,20 @@ def inject_global_styles():
         box-shadow: inset 0 -2px 0 rgba(255, 89, 107, 0.90);
     }
 
+    div[data-baseweb="select"] > div,
+    div[data-testid="stDateInput"] > div > div {
+        background: rgba(16, 24, 42, 0.92);
+        border: 1px solid rgba(123, 150, 188, 0.12);
+        border-radius: 12px;
+        color: #eaf2fb;
+    }
+
+    label[data-testid="stWidgetLabel"] p {
+        color: #9fb0c7;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
     .panel {
         position: relative;
         overflow: hidden;
@@ -399,6 +413,29 @@ def inject_global_styles():
         z-index: 1;
     }
 
+    .filter-summary-panel {
+        padding: 12px 14px;
+        min-height: 68px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .filter-summary-title {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #eef5fe;
+        margin-bottom: 6px;
+    }
+
+    .filter-summary-text {
+        font-size: 0.80rem;
+        color: #a9b8cc;
+        font-weight: 600;
+    }
+
     .heatmap-page {
         padding: 12px;
         min-height: 720px;
@@ -631,13 +668,18 @@ def render_heatmap_widget_header():
     """, unsafe_allow_html=True)
 
 
-def render_heatmap_page(mode="broad"):
+def render_heatmap_page(mode="broad", start_date=None, end_date=None, view_mode="Historical Performance"):
     titles = {
         "broad": "Broad Market Indices",
         "sectoral": "Sectoral Indices",
         "thematic": "Thematic Indices",
         "strategy": "Strategy Indices",
     }
+
+    if start_date and end_date:
+        range_text = f"{start_date.strftime('%d %b %Y')} → {end_date.strftime('%d %b %Y')}"
+    else:
+        range_text = "Current session"
 
     data = {
         "broad": [
@@ -704,11 +746,11 @@ def render_heatmap_page(mode="broad"):
     <div class="panel heatmap-page">
         <div class="section-head">
             <div class="section-title">{titles[mode]}</div>
-            <div class="mini-pill">NSE Indices</div>
+            <div class="mini-pill">{view_mode}</div>
         </div>
 
         <div class="controls-row">
-            <div class="mini-pill">1D Change</div>
+            <div class="mini-pill">Range: {range_text}</div>
             <div class="mini-pill">Sorted by Performance</div>
             <div class="mini-pill">Index Universe</div>
             <div class="mini-pill">Heat Scale</div>
