@@ -5,6 +5,7 @@ from components.styles import (
     render_top_header,
     render_breadth_strip,
     render_kpi_cards,
+    render_heatmap_widget_header,
     render_heatmap_page,
 )
 
@@ -21,18 +22,25 @@ with main:
     render_breadth_strip()
     render_kpi_cards()
 
+    render_heatmap_widget_header()
+
     tab1, tab2, tab3, tab4 = st.tabs(
-        ["Sector Strength", "Relative Strength", "Momentum Leaders", "QMO View"]
+        [
+            "Broad Market Indices",
+            "Sectoral Indices",
+            "Thematic Indices",
+            "Strategy Indices",
+        ]
     )
 
     with tab1:
-        render_heatmap_page("sector")
+        render_heatmap_page("broad")
 
     with tab2:
-        render_heatmap_page("relative")
+        render_heatmap_page("sectoral")
 
     with tab3:
-        render_heatmap_page("momentum")
+        render_heatmap_page("thematic")
 
     with tab4:
-        render_heatmap_page("qmo")
+        render_heatmap_page("strategy")
