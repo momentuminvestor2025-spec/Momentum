@@ -5,8 +5,7 @@ from components.styles import (
     render_top_header,
     render_breadth_strip,
     render_kpi_cards,
-    render_rs_leaderboard,
-    render_scanner_table,
+    render_heatmap_panel,
     render_right_detail_panel,
 )
 
@@ -23,11 +22,24 @@ with shell_main:
     render_breadth_strip()
     render_kpi_cards()
 
-    left, right = st.columns([2.15, 1.0], gap="medium")
+    left, right = st.columns([2.3, 1.0], gap="medium")
 
     with left:
-        render_rs_leaderboard()
-        render_scanner_table()
+        tab1, tab2, tab3, tab4 = st.tabs(
+            ["Sector Strength", "Relative Strength", "Momentum Leaders", "QMO View"]
+        )
+
+        with tab1:
+            render_heatmap_panel("sector")
+
+        with tab2:
+            render_heatmap_panel("relative")
+
+        with tab3:
+            render_heatmap_panel("momentum")
+
+        with tab4:
+            render_heatmap_panel("qmo")
 
     with right:
         render_right_detail_panel()
