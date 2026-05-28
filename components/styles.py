@@ -367,7 +367,7 @@ def inject_global_styles():
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
     }
 
     .heatmap-title {
@@ -378,18 +378,35 @@ def inject_global_styles():
         color: #eef5fe;
     }
 
-    .selector-wrap {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-bottom: 14px;
+    div[data-testid="stRadio"] > label {
+        display: none;
     }
 
-    .selector-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 14px;
+    div[data-testid="stRadio"] > div {
+        background: transparent;
+    }
+
+    div[data-testid="stRadio"] div[role="radiogroup"] {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    div[data-testid="stRadio"] div[role="radiogroup"] label {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    div[data-testid="stRadio"] div[role="radiogroup"] label > div:first-child {
+        display: none !important;
+    }
+
+    div[data-testid="stRadio"] div[role="radiogroup"] label p {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 14px;
         border-radius: 10px;
         font-size: 0.76rem;
         font-weight: 700;
@@ -398,10 +415,11 @@ def inject_global_styles():
         border: 1px solid rgba(123, 150, 188, 0.12);
     }
 
-    .selector-btn.active {
+    div[data-testid="stRadio"] div[role="radiogroup"] label[data-checked="true"] p,
+    div[data-testid="stRadio"] div[role="radiogroup"] label:has(input:checked) p {
         background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78));
         color: #ffffff;
-        border-color: rgba(95, 132, 197, 0.34);
+        border: 1px solid rgba(95, 132, 197, 0.34);
         box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.05),
             0 6px 18px rgba(0,0,0,0.18);
@@ -466,12 +484,18 @@ def inject_global_styles():
         .breadth-grid { grid-template-columns: repeat(2, 1fr); }
         .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        div[data-testid="stRadio"] div[role="radiogroup"] {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
     }
 
     @media (max-width: 760px) {
         .kpi-grid { grid-template-columns: 1fr; }
         .heatmap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .nav-rail { min-height: auto; }
+        div[data-testid="stRadio"] div[role="radiogroup"] {
+            grid-template-columns: 1fr;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -562,7 +586,7 @@ def render_kpi_cards():
 
 def _get_heatmap_data():
     return {
-        "broad": [
+        "Broad Market Indices": [
             ("NIFTY 50", "1.24%", "+1.24%", "heat-green-4", "green"),
             ("NIFTY NEXT 50", "1.08%", "+1.08%", "heat-green-3", "green"),
             ("NIFTY 100", "0.96%", "+0.96%", "heat-green-3", "green"),
@@ -576,7 +600,7 @@ def _get_heatmap_data():
             ("NIFTY LARGEMIDCAP 250", "0.77%", "+0.77%", "heat-green-2", "green"),
             ("INDIA VIX", "-1.92%", "-1.92%", "heat-red-3", "red"),
         ],
-        "sectoral": [
+        "Sectoral Indices": [
             ("NIFTY BANK", "0.42%", "+0.42%", "heat-green-1", "green"),
             ("NIFTY FIN SERVICE", "0.36%", "+0.36%", "heat-green-1", "green"),
             ("NIFTY IT", "-0.54%", "-0.54%", "heat-red-2", "red"),
@@ -590,7 +614,7 @@ def _get_heatmap_data():
             ("NIFTY OIL & GAS", "0.74%", "+0.74%", "heat-green-2", "green"),
             ("NIFTY CONSUMER DURABLES", "1.18%", "+1.18%", "heat-green-3", "green"),
         ],
-        "thematic": [
+        "Thematic Indices": [
             ("NIFTY INDIA DEFENCE", "1.84%", "+1.84%", "heat-green-5", "green"),
             ("NIFTY INDIA DIGITAL", "1.26%", "+1.26%", "heat-green-4", "green"),
             ("NIFTY ENERGY", "0.81%", "+0.81%", "heat-green-2", "green"),
@@ -604,7 +628,7 @@ def _get_heatmap_data():
             ("NIFTY MANUFACTURING", "1.47%", "+1.47%", "heat-green-4", "green"),
             ("NIFTY TRANSPORTATION", "1.03%", "+1.03%", "heat-green-3", "green"),
         ],
-        "strategy": [
+        "Strategy Indices": [
             ("NIFTY ALPHA 50", "1.66%", "+1.66%", "heat-green-5", "green"),
             ("NIFTY QUALITY LOW VOL 30", "0.74%", "+0.74%", "heat-green-2", "green"),
             ("NIFTY LOW VOLATILITY 50", "0.28%", "+0.28%", "heat-green-1", "green"),
@@ -622,52 +646,20 @@ def _get_heatmap_data():
 
 
 def render_heatmap_widget():
-    if "heatmap_view" not in st.session_state:
-        st.session_state.heatmap_view = "broad"
+    st.markdown('<div class="panel heatmap-widget">', unsafe_allow_html=True)
+    st.markdown('<div class="heatmap-top"><div class="heatmap-title">Heatmap</div></div>', unsafe_allow_html=True)
 
-    labels = {
-        "broad": "Broad Market Indices",
-        "sectoral": "Sectoral Indices",
-        "thematic": "Thematic Indices",
-        "strategy": "Strategy Indices",
-    }
+    selected = st.radio(
+        "Heatmap Category",
+        ["Broad Market Indices", "Sectoral Indices", "Thematic Indices", "Strategy Indices"],
+        horizontal=True,
+        label_visibility="collapsed",
+        key="heatmap_selector",
+    )
 
-    c1, c2, c3, c4 = st.columns(4, gap="small")
+    data = _get_heatmap_data()[selected]
 
-    with c1:
-        if st.button("Broad Market Indices", use_container_width=True, key="btn_broad"):
-            st.session_state.heatmap_view = "broad"
-    with c2:
-        if st.button("Sectoral Indices", use_container_width=True, key="btn_sectoral"):
-            st.session_state.heatmap_view = "sectoral"
-    with c3:
-        if st.button("Thematic Indices", use_container_width=True, key="btn_thematic"):
-            st.session_state.heatmap_view = "thematic"
-    with c4:
-        if st.button("Strategy Indices", use_container_width=True, key="btn_strategy"):
-            st.session_state.heatmap_view = "strategy"
-
-    active = st.session_state.heatmap_view
-    data = _get_heatmap_data()[active]
-
-    button_html = f"""
-    <div class="selector-wrap">
-        <div class="selector-btn {'active' if active == 'broad' else ''}">Broad Market Indices</div>
-        <div class="selector-btn {'active' if active == 'sectoral' else ''}">Sectoral Indices</div>
-        <div class="selector-btn {'active' if active == 'thematic' else ''}">Thematic Indices</div>
-        <div class="selector-btn {'active' if active == 'strategy' else ''}">Strategy Indices</div>
-    </div>
-    """
-
-    html = f"""
-    <div class="panel heatmap-widget">
-        <div class="heatmap-top">
-            <div class="heatmap-title">Heatmap</div>
-        </div>
-        {button_html}
-        <div class="heatmap-grid">
-    """
-
+    html = '<div class="heatmap-grid">'
     for name, score, change, bg, txt in data:
         html += f"""
         <div class="heat-tile {bg}">
@@ -676,10 +668,7 @@ def render_heatmap_widget():
             <div class="heat-change {txt}">{change}</div>
         </div>
         """
-
-    html += """
-        </div>
-    </div>
-    """
+    html += "</div>"
 
     st.html(html)
+    st.markdown("</div>", unsafe_allow_html=True)
