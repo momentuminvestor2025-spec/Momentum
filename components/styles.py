@@ -40,6 +40,29 @@ def inject_global_styles():
     [data-testid="stHeader"] { display: none; }
     [data-testid="stSidebar"] { display: none; }
 
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: transparent;
+        margin-bottom: 10px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 12px;
+        background: rgba(16, 24, 42, 0.90);
+        border: 1px solid rgba(123, 150, 188, 0.12);
+        color: #95a8c2;
+        font-size: 0.80rem;
+        font-weight: 700;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(180deg, rgba(42,109,255,0.18), rgba(25,67,168,0.12));
+        color: #eaf2fb;
+        border-color: rgba(75, 127, 255, 0.22);
+    }
+
     .panel {
         position: relative;
         overflow: hidden;
@@ -360,9 +383,9 @@ def inject_global_styles():
         height: 20px;
     }
 
-    .section-panel {
+    .heatmap-panel {
         padding: 10px;
-        margin-bottom: 12px;
+        min-height: 560px;
     }
 
     .section-head {
@@ -393,62 +416,83 @@ def inject_global_styles():
         white-space: nowrap;
     }
 
-    .chip-board {
+    .heatmap-grid {
         display: grid;
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 2px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.03);
     }
 
-    .rs-chip {
-        border-radius: 12px;
-        background: rgba(11, 20, 37, 0.85);
-        border: 1px solid rgba(123,150,188,0.10);
-        padding: 10px 10px 12px 10px;
-        min-height: 52px;
+    .heat-tile {
+        min-height: 120px;
+        padding: 12px 10px;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
+        text-align: center;
     }
 
-    .rs-chip-symbol {
-        font-size: 0.72rem;
-        color: #dfe9f7;
+    .heat-name {
+        font-size: 0.82rem;
         font-weight: 700;
-        margin-bottom: 6px;
+        color: #f8fbff;
+        margin-bottom: 10px;
+        line-height: 1.15;
     }
 
-    .rs-chip-value {
-        font-size: 0.96rem;
-        color: #ffffff;
+    .heat-score {
+        font-size: 1.4rem;
         font-weight: 800;
+        color: white;
+        margin-bottom: 8px;
         line-height: 1;
     }
 
-    .table-panel { padding: 10px; }
-    .table-wrap { overflow-x: auto; }
-
-    table.ms-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.72rem;
-        color: #dce7f6;
-    }
-
-    .ms-table thead th {
-        text-align: left;
-        font-size: 0.64rem;
-        color: #8398b5;
-        padding: 10px 8px;
-        border-bottom: 1px solid rgba(123,150,188,0.12);
+    .heat-change {
+        font-size: 0.86rem;
         font-weight: 700;
-        white-space: nowrap;
     }
 
-    .ms-table tbody td {
-        padding: 11px 8px;
-        border-bottom: 1px solid rgba(123,150,188,0.08);
-        white-space: nowrap;
+    .heat-green-5 { background: linear-gradient(180deg, #104d35 0%, #0e412e 100%); }
+    .heat-green-4 { background: linear-gradient(180deg, #0d432f 0%, #0c3728 100%); }
+    .heat-green-3 { background: linear-gradient(180deg, #0b3928 0%, #092f21 100%); }
+    .heat-green-2 { background: linear-gradient(180deg, #092f22 0%, #08261c 100%); }
+    .heat-green-1 { background: linear-gradient(180deg, #08251b 0%, #071d15 100%); }
+
+    .heat-red-1 { background: linear-gradient(180deg, #281119 0%, #1f0d13 100%); }
+    .heat-red-2 { background: linear-gradient(180deg, #331119 0%, #270d13 100%); }
+    .heat-red-3 { background: linear-gradient(180deg, #3e1119 0%, #2f0d13 100%); }
+    .heat-red-4 { background: linear-gradient(180deg, #481119 0%, #360d13 100%); }
+    .heat-red-5 { background: linear-gradient(180deg, #531119 0%, #3c0d13 100%); }
+    .heat-neutral { background: linear-gradient(180deg, #101a2f 0%, #0d1525 100%); }
+
+    .legend-row {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 12px;
+        flex-wrap: wrap;
     }
+
+    .legend-pill {
+        min-width: 84px;
+        text-align: center;
+        padding: 5px 9px;
+        border-radius: 7px;
+        color: #edf5ff;
+        font-size: 0.68rem;
+        font-weight: 700;
+    }
+
+    .legend-red-3 { background: #4a1019; }
+    .legend-red-2 { background: #3a1118; }
+    .legend-red-1 { background: #2b1217; }
+    .legend-green-1 { background: #123326; }
+    .legend-green-2 { background: #0f4630; }
+    .legend-green-3 { background: #0e5a3d; }
 
     .detail-top, .summary-panel, .qualification-panel {
         padding: 10px;
@@ -459,12 +503,12 @@ def inject_global_styles():
         .top-header-grid { grid-template-columns: 1fr; }
         .breadth-grid { grid-template-columns: repeat(2, 1fr); }
         .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .chip-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     @media (max-width: 760px) {
         .kpi-grid { grid-template-columns: 1fr; }
-        .chip-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .heatmap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .nav-rail { min-height: auto; }
     }
     </style>
@@ -554,59 +598,107 @@ def render_kpi_cards():
     st.markdown(html, unsafe_allow_html=True)
 
 
-def render_rs_leaderboard():
-    chips = [
-        ("DIXON", "2.56"),
-        ("COFORGE", "2.31"),
-        ("KALYANKJIL", "2.21"),
-        ("ASTRAL", "2.08"),
-        ("LTF", "1.98"),
-        ("HAL", "1.93"),
-        ("DEEPAKNTR", "1.87"),
-        ("CGPOWER", "1.82"),
-        ("JINDALSTEL", "1.78"),
-    ]
+def render_heatmap_panel(mode="sector"):
+    datasets = {
+        "sector": [
+            ("Capital Goods", "1.67", "+2.45%", "heat-green-5", "green"),
+            ("Metals", "1.54", "+2.18%", "heat-green-4", "green"),
+            ("Auto", "1.32", "+1.72%", "heat-green-3", "green"),
+            ("Construction", "1.21", "+1.35%", "heat-green-3", "green"),
+            ("Chemicals", "1.15", "+1.08%", "heat-green-2", "green"),
+            ("Consumer Durables", "1.07", "+0.98%", "heat-green-2", "green"),
+            ("Oil & Gas", "1.03", "+0.71%", "heat-green-2", "green"),
+            ("Power", "0.98", "+0.32%", "heat-green-1", "green"),
+            ("Telecom", "0.94", "+0.12%", "heat-green-1", "green"),
+            ("IT Services", "0.89", "-0.18%", "heat-neutral", "red"),
+            ("Healthcare", "0.86", "-0.34%", "heat-red-1", "red"),
+            ("FMCG", "0.82", "-0.56%", "heat-red-2", "red"),
+        ],
+        "relative": [
+            ("DIXON", "2.56", "+3.24%", "heat-green-5", "green"),
+            ("COFORGE", "2.31", "+2.87%", "heat-green-4", "green"),
+            ("KALYANKJIL", "2.21", "+4.12%", "heat-green-4", "green"),
+            ("ASTRAL", "2.08", "+2.61%", "heat-green-3", "green"),
+            ("LTF", "1.98", "+2.34%", "heat-green-3", "green"),
+            ("HAL", "1.93", "+1.96%", "heat-green-3", "green"),
+            ("DEEPAKNTR", "1.87", "+2.78%", "heat-green-2", "green"),
+            ("CGPOWER", "1.82", "+1.78%", "heat-green-2", "green"),
+            ("JINDALSTEL", "1.78", "+2.05%", "heat-green-2", "green"),
+            ("KPIT", "1.74", "+1.62%", "heat-green-1", "green"),
+            ("TITAN", "1.41", "-0.21%", "heat-neutral", "red"),
+            ("HDFCBANK", "0.88", "-0.64%", "heat-red-2", "red"),
+        ],
+        "momentum": [
+            ("DIXON", "98", "+18.1%", "heat-green-5", "green"),
+            ("COFORGE", "95", "+15.4%", "heat-green-4", "green"),
+            ("KALYANKJIL", "93", "+14.7%", "heat-green-4", "green"),
+            ("ASTRAL", "91", "+13.9%", "heat-green-3", "green"),
+            ("HAL", "89", "+12.2%", "heat-green-3", "green"),
+            ("LTF", "87", "+10.6%", "heat-green-3", "green"),
+            ("CGPOWER", "84", "+9.2%", "heat-green-2", "green"),
+            ("KPIT", "81", "+8.4%", "heat-green-2", "green"),
+            ("TATAMOTORS", "79", "+7.8%", "heat-green-1", "green"),
+            ("INFY", "61", "-1.2%", "heat-neutral", "red"),
+            ("HINDUNILVR", "54", "-2.1%", "heat-red-2", "red"),
+            ("WIPRO", "49", "-3.4%", "heat-red-3", "red"),
+        ],
+        "qmo": [
+            ("DIXON", "QMO", "Pass", "heat-green-5", "green"),
+            ("COFORGE", "QMO", "Pass", "heat-green-4", "green"),
+            ("KALYANKJIL", "QMO", "Pass", "heat-green-4", "green"),
+            ("ASTRAL", "QMO", "Pass", "heat-green-3", "green"),
+            ("HAL", "QMO", "Pass", "heat-green-3", "green"),
+            ("LTF", "QMO", "Pass", "heat-green-3", "green"),
+            ("CGPOWER", "QM", "Pass", "heat-green-2", "green"),
+            ("KPIT", "QM", "Pass", "heat-green-2", "green"),
+            ("TATAMOTORS", "MO", "Pass", "heat-green-1", "green"),
+            ("INFY", "Watch", "Fail", "heat-red-1", "red"),
+            ("HINDUNILVR", "Watch", "Fail", "heat-red-2", "red"),
+            ("WIPRO", "Watch", "Fail", "heat-red-3", "red"),
+        ],
+    }
 
-    html = """
-    <div class="panel section-panel">
+    titles = {
+        "sector": "Sector Strength Heatmap",
+        "relative": "Relative Strength Heatmap",
+        "momentum": "Momentum Heatmap",
+        "qmo": "QMO Qualification Heatmap",
+    }
+
+    rows = datasets.get(mode, datasets["sector"])
+
+    html = f"""
+    <div class="panel heatmap-panel">
         <div class="section-head">
-            <div class="section-title">Relative Strength Leaderboard</div>
-            <div class="mini-pill">View All</div>
+            <div class="section-title">{titles.get(mode, "Heatmap")}</div>
+            <div class="mini-pill">NIFTY 500 ▾</div>
         </div>
-        <div class="chip-board">
+        <div class="heatmap-grid">
     """
-    for sym, val in chips:
+
+    for name, score, change, tile, txt in rows:
         html += f"""
-        <div class="rs-chip">
-            <div class="rs-chip-symbol">{sym}</div>
-            <div class="rs-chip-value">{val}</div>
+        <div class="heat-tile {tile}">
+            <div class="heat-name">{name}</div>
+            <div class="heat-score">{score}</div>
+            <div class="heat-change {txt}">{change}</div>
         </div>
         """
-    html += "</div></div>"
-    st.markdown(html, unsafe_allow_html=True)
 
-
-def render_scanner_table():
-    st.markdown("""
-    <div class="panel table-panel">
-        <div class="section-head">
-            <div class="section-title">Momentum Scanner (NIFTY 500)</div>
-            <div class="mini-pill">302 Results</div>
+    html += """
         </div>
-        <div class="table-wrap">
-            <table class="ms-table">
-                <thead>
-                    <tr><th>#</th><th>Symbol</th><th>Company</th><th>Price</th><th>Daily %</th><th>Weekly %</th><th>RS</th><th>ATR RS</th><th>Dist. 52W High</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>DIXON</td><td>Dixon Technologies (India) Ltd.</td><td>15,642.50</td><td class="green">+3.24%</td><td class="green">+8.91%</td><td>2.56</td><td>1.42</td><td class="red">-8.33%</td></tr>
-                    <tr><td>2</td><td>COFORGE</td><td>Coforge Ltd.</td><td>8,144.30</td><td class="green">+2.87%</td><td class="green">+7.32%</td><td>2.31</td><td>1.28</td><td class="red">-12.41%</td></tr>
-                    <tr><td>3</td><td>KALYANKJIL</td><td>Kalyan Jewellers India Ltd.</td><td>714.80</td><td class="green">+4.12%</td><td class="green">+10.27%</td><td>2.21</td><td>1.67</td><td class="red">-6.17%</td></tr>
-                </tbody>
-            </table>
+        <div class="legend-row">
+            <div class="legend-pill legend-red-3">&lt; Weak</div>
+            <div class="legend-pill legend-red-2">Lagging</div>
+            <div class="legend-pill legend-red-1">Neutral</div>
+            <div class="legend-pill legend-green-1">Improving</div>
+            <div class="legend-pill legend-green-2">Strong</div>
+            <div class="legend-pill legend-green-3">Leading</div>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """
+
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def render_right_detail_panel():
