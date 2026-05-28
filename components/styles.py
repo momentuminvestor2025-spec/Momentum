@@ -20,8 +20,6 @@ def inject_global_styles():
 
     .stApp {
         background:
-            radial-gradient(circle at top left, rgba(24, 94, 255, 0.08), transparent 16%),
-            radial-gradient(circle at 80% 0%, rgba(0, 255, 170, 0.05), transparent 12%),
             linear-gradient(180deg, #040915 0%, #050b16 100%);
         color: var(--text);
     }
@@ -359,7 +357,7 @@ def inject_global_styles():
 
     .heatmap-widget {
         padding: 12px;
-        min-height: 760px;
+        min-height: auto;
     }
 
     .heatmap-top {
@@ -378,57 +376,45 @@ def inject_global_styles():
         color: #eef5fe;
     }
 
-    div[data-testid="stRadio"] > label {
-        display: none;
-    }
-
-    div[data-testid="stRadio"] > div {
-        background: transparent;
-    }
-
-    div[data-testid="stRadio"] div[role="radiogroup"] {
-        display: grid !important;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px;
+    div[data-testid="stSegmentedControl"] {
         margin-bottom: 12px;
     }
 
-    div[data-testid="stRadio"] div[role="radiogroup"] label {
-        margin: 0 !important;
-        padding: 0 !important;
+    div[data-testid="stSegmentedControl"] > label {
+        display: none;
     }
 
-    div[data-testid="stRadio"] div[role="radiogroup"] label > div:first-child {
-        display: none !important;
+    div[data-testid="stSegmentedControl"] [role="radiogroup"] {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        background: transparent !important;
     }
 
-    div[data-testid="stRadio"] div[role="radiogroup"] label p {
-        margin: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 14px;
-        border-radius: 10px;
-        font-size: 0.76rem;
-        font-weight: 700;
-        color: #a9bbd2;
-        background: rgba(16, 24, 42, 0.90);
-        border: 1px solid rgba(123, 150, 188, 0.12);
+    div[data-testid="stSegmentedControl"] [role="radio"] {
+        min-height: 36px;
+        border-radius: 10px !important;
+        background: rgba(16, 24, 42, 0.90) !important;
+        border: 1px solid rgba(123, 150, 188, 0.12) !important;
+        color: #a9bbd2 !important;
+        font-size: 0.76rem !important;
+        font-weight: 700 !important;
+        box-shadow: none !important;
     }
 
-    div[data-testid="stRadio"] div[role="radiogroup"] label[data-checked="true"] p,
-    div[data-testid="stRadio"] div[role="radiogroup"] label:has(input:checked) p {
-        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78));
-        color: #ffffff;
-        border: 1px solid rgba(95, 132, 197, 0.34);
+    div[data-testid="stSegmentedControl"] [role="radio"][aria-checked="true"] {
+        background: linear-gradient(180deg, rgba(38,73,132,0.58), rgba(23,43,78,0.78)) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(95, 132, 197, 0.34) !important;
         box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.05),
-            0 6px 18px rgba(0,0,0,0.18);
+            0 6px 18px rgba(0,0,0,0.18) !important;
     }
 
     .heatmap-grid {
         display: grid;
         grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 4px;
+        gap: 3px;
         border-radius: 14px;
         overflow: hidden;
         background: rgba(255,255,255,0.03);
@@ -484,7 +470,7 @@ def inject_global_styles():
         .breadth-grid { grid-template-columns: repeat(2, 1fr); }
         .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .heatmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        div[data-testid="stRadio"] div[role="radiogroup"] {
+        div[data-testid="stSegmentedControl"] [role="radiogroup"] {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
@@ -493,7 +479,7 @@ def inject_global_styles():
         .kpi-grid { grid-template-columns: 1fr; }
         .heatmap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .nav-rail { min-height: auto; }
-        div[data-testid="stRadio"] div[role="radiogroup"] {
+        div[data-testid="stSegmentedControl"] [role="radiogroup"] {
             grid-template-columns: 1fr;
         }
     }
@@ -649,13 +635,22 @@ def render_heatmap_widget():
     st.markdown('<div class="panel heatmap-widget">', unsafe_allow_html=True)
     st.markdown('<div class="heatmap-top"><div class="heatmap-title">Heatmap</div></div>', unsafe_allow_html=True)
 
-    selected = st.radio(
+    selected = st.segmented_control(
         "Heatmap Category",
-        ["Broad Market Indices", "Sectoral Indices", "Thematic Indices", "Strategy Indices"],
-        horizontal=True,
-        label_visibility="collapsed",
+        options=[
+            "Broad Market Indices",
+            "Sectoral Indices",
+            "Thematic Indices",
+            "Strategy Indices",
+        ],
+        selection_mode="single",
+        default="Broad Market Indices",
         key="heatmap_selector",
+        label_visibility="collapsed",
     )
+
+    if not selected:
+        selected = "Broad Market Indices"
 
     data = _get_heatmap_data()[selected]
 
@@ -670,5 +665,5 @@ def render_heatmap_widget():
         """
     html += "</div>"
 
-    st.html(html)
+    st.markdown(html, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
